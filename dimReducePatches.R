@@ -18,4 +18,4 @@ for (i in 1:nrow(top20_dnorm)) {
   #print(pixels)
   res <- rbind(res, pixels)
 }
-write.table(res, "patches_top20_dnorm_reduced", row.names = F, col.names = F)
+write.table(res, "patches_top20", row.names = F, col.names = F)
