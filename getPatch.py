@@ -11,6 +11,7 @@ contrast = []
 d_norm_contrast = []
 
 NUM_IMAGES = 100
+NUM_PATCHES = 100
 D_NORM = True
 
 #Function to render a 3 by 3 patch
@@ -95,32 +96,34 @@ def getPatch(im):
 
 	############
 	# Finding a divisor to make the pixels value within range 0-255
-	l = []
-	for i in img:
-		l.append(max(i))
+	# l = []
+	# for i in img:
+	# 	l.append(max(i))
 
-	maxPixel = max(l)
+	# maxPixel = max(l)
 
-	divNum = int(math.ceil(maxPixel/255.0))
+	# divNum = int(math.ceil(maxPixel/255.0))
 	############
 
 	#Storing the log value of the pixels in the matrix matPixels
 	for i in range(0, width):
 		for j in range(0, height):
-			#print img[i][j]
-			img[i][j] = img[i][j]/divNum
+			
+			#img[i][j] = img[i][j]/divNum
+
+			## try log c+1
 
 			try:
-				matPixels[i][j] = round(math.log(img[i][j]), 4)
+				matPixels[i][j] = round(math.log(img[i][j] + 1), 4)
 			except:
-				matPixels[i][j] = 0
+				print("Log error")
 
 	#print matPixels
 
 	allPatches = []
 
 	#Calculate 100 random 3 by 3 patches
-	for i in range(0,100):
+	for i in range(0,NUM_PATCHES):
 		rand = random.randint(0+1, width-2)
 		#print(rand)
 		patch_33 = [matPixels[rand-1][rand+1], matPixels[rand][rand+1], matPixels[rand+1][rand+1], matPixels[rand-1][rand], matPixels[rand][rand], matPixels[rand+1][rand], matPixels[rand-1][rand-1], matPixels[rand][rand-1], matPixels[rand+1][rand-1]]
